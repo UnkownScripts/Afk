@@ -177,4 +177,4 @@ afkOffButton.MouseButton1Click:Connect(disableAFK)
 -- Close Button Functionality (Hides the GUI)
 closeButton.MouseButton1Click:Connect(function()
     proFrame.Visible = false  -- Hides the frame instead of destroying it
-end
+end)
