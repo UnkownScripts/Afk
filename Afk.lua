@@ -1,5 +1,3 @@
--- AFK Script with Advanced GUI Design, Tabs, Close Button, and Draggable Frame
-
 -- Create the ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AFKScreenGui"
@@ -24,8 +22,8 @@ end
 
 -- Create the Draggable Main Frame (ProFrame)
 local proFrame = Instance.new("Frame")
-proFrame.Size = UDim2.new(0, 380, 0, 250)
-proFrame.Position = UDim2.new(0.5, -190, 0.5, -125)
+proFrame.Size = UDim2.new(0, 380, 0, 400)  -- Increased height for additional content
+proFrame.Position = UDim2.new(0.5, -190, 0.5, -200)
 proFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 proFrame.BorderSizePixel = 0
 proFrame.Active = true
@@ -33,18 +31,6 @@ proFrame.Draggable = true  -- Make the frame draggable
 proFrame.Parent = screenGui
 createUICorner(proFrame, 10) -- Rounded corners for the frame
 createUIStroke(proFrame, 2, Color3.fromRGB(255, 255, 255)) -- Add white border to the frame
-
--- Add a shadow effect to the main frame
-local shadowFrame = Instance.new("ImageLabel")
-shadowFrame.Size = proFrame.Size + UDim2.new(0, 30, 0, 30)
-shadowFrame.Position = proFrame.Position + UDim2.new(0, -15, 0, -15)
-shadowFrame.Image = "rbxassetid://1316045217"
-shadowFrame.ImageColor3 = Color3.fromRGB(0, 0, 0)
-shadowFrame.BackgroundTransparency = 1
-shadowFrame.ImageTransparency = 0.5
-shadowFrame.ScaleType = Enum.ScaleType.Slice
-shadowFrame.SliceCenter = Rect.new(10, 10, 118, 118)
-shadowFrame.Parent = proFrame
 
 -- Create a Header (Title Bar)
 local header = Instance.new("Frame")
@@ -59,7 +45,7 @@ createUICorner(header, 10) -- Rounded corners for the header
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, -40, 1, 0)  -- Leave space for the close button
 titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "AFK Toggle Menu"
+titleLabel.Text = "AFK Menu By UnkownScripts"
 titleLabel.TextColor3 = Color3.new(1, 1, 1)
 titleLabel.Font = Enum.Font.GothamBold
 titleLabel.TextSize = 20
@@ -103,6 +89,30 @@ afkTabButton.Font = Enum.Font.GothamBold
 afkTabButton.TextSize = 16
 afkTabButton.Parent = tabContainer
 createUICorner(afkTabButton, 6)
+
+-- Create the "Speed Control" Tab Button
+local speedTabButton = Instance.new("TextButton")
+speedTabButton.Size = UDim2.new(0, 120, 0, 35)
+speedTabButton.Position = UDim2.new(0, 140, 0, 0)
+speedTabButton.Text = "Speed Control"
+speedTabButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+speedTabButton.TextColor3 = Color3.new(1, 1, 1)
+speedTabButton.Font = Enum.Font.GothamBold
+speedTabButton.TextSize = 16
+speedTabButton.Parent = tabContainer
+createUICorner(speedTabButton, 6)
+
+-- Create the "Credits" Tab Button
+local creditsTabButton = Instance.new("TextButton")
+creditsTabButton.Size = UDim2.new(0, 120, 0, 35)
+creditsTabButton.Position = UDim2.new(0, 270, 0, 0)
+creditsTabButton.Text = "Credits"
+creditsTabButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+creditsTabButton.TextColor3 = Color3.new(1, 1, 1)
+creditsTabButton.Font = Enum.Font.GothamBold
+creditsTabButton.TextSize = 16
+creditsTabButton.Parent = tabContainer
+createUICorner(creditsTabButton, 6)
 
 -- Create a Content Frame (AFK Control Tab Content)
 local contentFrame = Instance.new("Frame")
@@ -170,11 +180,235 @@ local function disableAFK()
     end
 end
 
--- Connect buttons to their respective functions
+-- AFK Button Click Events
 afkOnButton.MouseButton1Click:Connect(enableAFK)
 afkOffButton.MouseButton1Click:Connect(disableAFK)
 
--- Close Button Functionality (Hides the GUI)
+-- Create a Content Frame (Speed Control Tab Content)
+local speedContentFrame = Instance.new("Frame")
+speedContentFrame.Size = UDim2.new(1, 0, 1, -75)
+speedContentFrame.Position = UDim2.new(0, 0, 0, 75)
+speedContentFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+speedContentFrame.BorderSizePixel = 0
+speedContentFrame.Parent = proFrame
+createUICorner(speedContentFrame, 10)
+speedContentFrame.Visible = false  -- Hide speed content initially
+
+-- Create Speed Control Elements
+local speedLabel = Instance.new("TextLabel")
+speedLabel.Size = UDim2.new(0, 200, 0, 40)
+speedLabel.Position = UDim2.new(0.5, -100, 0.1, 0)
+speedLabel.Text = "Set Walk Speed:"
+speedLabel.BackgroundTransparency = 1
+speedLabel.TextColor3 = Color3.new(1, 1, 1)
+speedLabel.Font = Enum.Font.GothamBold
+speedLabel.TextSize = 18
+speedLabel.Parent = speedContentFrame
+
+local speedInput = Instance.new("TextBox")
+speedInput.Size = UDim2.new(0, 200, 0, 40)
+speedInput.Position = UDim2.new(0.5, -100, 0.2, 0)
+speedInput.PlaceholderText = "Enter speed (default: 16)"
+speedInput.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+speedInput.TextColor3 = Color3.new(1, 1, 1)
+speedInput.Font = Enum.Font.Gotham
+speedInput.TextSize = 16
+speedInput.Parent = speedContentFrame
+createUICorner(speedInput, 10)
+
+local speedSetButton = Instance.new("TextButton")
+speedSetButton.Size = UDim2.new(0, 100, 0, 40)
+speedSetButton.Position = UDim2.new(0.5, -50, 0.35, 0)
+speedSetButton.Text = "Set Speed"
+speedSetButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+speedSetButton.TextColor3 = Color3.new(1, 1, 1)
+speedSetButton.Font = Enum.Font.GothamBold
+speedSetButton.TextSize = 18
+speedSetButton.Parent = speedContentFrame
+createUICorner(speedSetButton, 10)
+
+-- Reset Speed Button
+local resetSpeedButton = Instance.new("TextButton")
+resetSpeedButton.Size = UDim2.new(0, 50, 0, 40)
+resetSpeedButton.Position = UDim2.new(0.5, 60, 0.35, 0)  -- Positioned next to Set Speed
+resetSpeedButton.Text = "Reset"
+resetSpeedButton.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+resetSpeedButton.TextColor3 = Color3.new(1, 1, 1)
+resetSpeedButton.Font = Enum.Font.GothamBold
+resetSpeedButton.TextSize = 14
+resetSpeedButton.Parent = speedContentFrame
+createUICorner(resetSpeedButton, 10)
+
+-- Create Credits Content Frame
+local creditsContentFrame = Instance.new("Frame")
+creditsContentFrame.Size = UDim2.new(1, 0, 1, -75)
+creditsContentFrame.Position = UDim2.new(0, 0, 0, 75)
+creditsContentFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+creditsContentFrame.BorderSizePixel = 0
+creditsContentFrame.Parent = proFrame
+createUICorner(creditsContentFrame, 10)
+creditsContentFrame.Visible = false  -- Initially hide credits
+
+-- Create Credits UI Elements
+local creditsTitleLabel = Instance.new("TextLabel")
+creditsTitleLabel.Size = UDim2.new(1, 0, 0, 40)
+creditsTitleLabel.Position = UDim2.new(0, 0, 0, 10)
+creditsTitleLabel.Text = "Credits"
+creditsTitleLabel.BackgroundTransparency = 1
+creditsTitleLabel.TextColor3 = Color3.new(1, 1, 1)
+creditsTitleLabel.Font = Enum.Font.GothamBold
+creditsTitleLabel.TextSize = 24
+creditsTitleLabel.Parent = creditsContentFrame
+
+local usernameLabel = Instance.new("TextLabel")
+usernameLabel.Size = UDim2.new(1, 0, 0, 30)
+usernameLabel.Position = UDim2.new(0, 0, 0.1, 0)
+usernameLabel.Text = "Username: UnkownScript"  -- Replace with your username
+usernameLabel.BackgroundTransparency = 1
+usernameLabel.TextColor3 = Color3.new(1, 1, 1)
+usernameLabel.Font = Enum.Font.Gotham
+usernameLabel.TextSize = 18
+usernameLabel.Parent = creditsContentFrame
+
+local discordLabel = Instance.new("TextLabel")
+discordLabel.Size = UDim2.new(1, 0, 0, 30)
+discordLabel.Position = UDim2.new(0, 0, 0.2, 0)
+discordLabel.Text = "Discord: unkownscripts"  -- Replace with your Discord
+discordLabel.BackgroundTransparency = 1
+discordLabel.TextColor3 = Color3.new(1, 1, 1)
+discordLabel.Font = Enum.Font.Gotham
+discordLabel.TextSize = 18
+discordLabel.Parent = creditsContentFrame
+
+local copyButton = Instance.new("TextButton")
+copyButton.Size = UDim2.new(0, 150, 0, 40)
+copyButton.Position = UDim2.new(0.5, -75, 0.4, 0)
+copyButton.Text = "Copy Discord"
+copyButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+copyButton.TextColor3 = Color3.new(1, 1, 1)
+copyButton.Font = Enum.Font.GothamBold
+copyButton.TextSize = 18
+copyButton.Parent = creditsContentFrame
+createUICorner(copyButton, 10)
+
+copyButton.MouseButton1Click:Connect(function()
+    setclipboard("unkownscripts")  -- Replace with your Discord
+end)
+
+local youtubeLabel = Instance.new("TextLabel")
+youtubeLabel.Size = UDim2.new(1, 0, 0, 30)
+youtubeLabel.Position = UDim2.new(0, 0, 0.6, 0)
+youtubeLabel.Text = "YouTube: @Shinzuu"  -- Replace with your YouTube channel
+youtubeLabel.BackgroundTransparency = 1
+youtubeLabel.TextColor3 = Color3.new(1, 1, 1)
+youtubeLabel.Font = Enum.Font.Gotham
+youtubeLabel.TextSize = 18
+youtubeLabel.Parent = creditsContentFrame
+
+-- Infinite Jump Control
+local infiniteJumpEnabled = false  -- Track infinite jump state
+
+local function toggleInfiniteJump()
+    infiniteJumpEnabled = not infiniteJumpEnabled
+    if infiniteJumpEnabled then
+        player.Character.Humanoid.JumpPower = 50  -- Set jump power for infinite jump
+        player.Character.Humanoid.Changed:Connect(function(property)
+            if property == "Jump" and infiniteJumpEnabled then
+                player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            end
+        end)
+    else
+        player.Character.Humanoid.JumpPower = 50  -- Reset jump power
+    end
+end
+
+local infiniteJumpButton = Instance.new("TextButton")
+infiniteJumpButton.Size = UDim2.new(0, 150, 0, 40)
+infiniteJumpButton.Position = UDim2.new(0.15, 55, 0.45, 15)
+infiniteJumpButton.Text = "Inf Jump ON/OFF"
+infiniteJumpButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+infiniteJumpButton.TextColor3 = Color3.new(1, 1, 1)
+infiniteJumpButton.Font = Enum.Font.GothamBold
+infiniteJumpButton.TextSize = 18
+infiniteJumpButton.Parent = speedContentFrame
+createUICorner(infiniteJumpButton, 10)
+
+-- Button Click Events
 closeButton.MouseButton1Click:Connect(function()
-    proFrame.Visible = false  -- Hides the frame instead of destroying it
+    screenGui:Destroy()
+end)
+
+afkTabButton.MouseButton1Click:Connect(function()
+    contentFrame.Visible = true
+    speedContentFrame.Visible = false
+    creditsContentFrame.Visible = false
+end)
+
+speedTabButton.MouseButton1Click:Connect(function()
+    contentFrame.Visible = false
+    speedContentFrame.Visible = true
+    creditsContentFrame.Visible = false
+end)
+
+creditsTabButton.MouseButton1Click:Connect(function()
+    contentFrame.Visible = false
+    speedContentFrame.Visible = false
+    creditsContentFrame.Visible = true
+end)
+
+-- Variables for Speed Loop
+local speedLoopActive = false
+local speedValue = 16  -- Default speed
+
+-- Function to update speed in a loop
+local function updateSpeedLoop()
+    while speedLoopActive do
+        humanoid.WalkSpeed = speedValue
+        wait(0.1)  -- Adjust the update interval as needed
+    end
+end
+
+-- Handle Speed Setting
+speedSetButton.MouseButton1Click:Connect(function()
+    local inputSpeedValue = tonumber(speedInput.Text)  -- Convert input to number
+    if inputSpeedValue and inputSpeedValue > 16 then
+        speedValue = inputSpeedValue  -- Update the speed value
+        if not speedLoopActive then
+            speedLoopActive = true
+            spawn(updateSpeedLoop)  -- Start the speed update loop
+        end
+        print("Set Walk Speed to:", speedValue)  -- Debugging line
+        speedInput.Text = ""  -- Clear the speed input
+    else
+        warn("Invalid speed value. Please enter a number greater than 16.")
+    end
+end)
+
+-- Reset Speed to Default (16) on Button Click
+resetSpeedButton.MouseButton1Click:Connect(function()
+    speedLoopActive = false  -- Stop the speed loop
+    humanoid.WalkSpeed = 16  -- Reset the player's walk speed
+    speedValue = 16  -- Reset speed value
+    speedInput.Text = ""  -- Clear the speed input
+    infiniteJumpEnabled = false  -- Disable infinite jump
+    player.Character.Humanoid.JumpPower = 50  -- Reset jump power
+end)
+
+creditsTabButton.MouseButton1Click:Connect(function()
+    contentFrame.Visible = false
+    speedContentFrame.Visible = false
+    creditsContentFrame.Visible = true
+end)
+
+-- Toggle Infinite Jump on Button Click
+infiniteJumpButton.MouseButton1Click:Connect(toggleInfiniteJump)
+
+-- Default speed setting
+humanoid.WalkSpeed = 16  -- Set default speed
+
+-- Cleanup connections
+game.Players.LocalPlayer.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid")
+    humanoid.WalkSpeed = 16  -- Reset speed when character respawns
 end)
