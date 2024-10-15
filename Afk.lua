@@ -22,7 +22,7 @@ end
 
 -- Create the Draggable Main Frame (ProFrame)
 local proFrame = Instance.new("Frame")
-proFrame.Size = UDim2.new(0, 380, 0, 400)  -- Increased height for additional content
+proFrame.Size = UDim2.new(0, 393, 0, 400)  -- Increased height for additional content
 proFrame.Position = UDim2.new(0.5, -190, 0.5, -200)
 proFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 proFrame.BorderSizePixel = 0
