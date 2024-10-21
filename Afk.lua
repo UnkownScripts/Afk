@@ -45,7 +45,7 @@ createUICorner(header, 10) -- Rounded corners for the header
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, -40, 1, 0)  -- Leave space for the close button
 titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "AFK Menu By UnkownScripts"
+titleLabel.Text = "AFK Menu By UnknownScripts"
 titleLabel.TextColor3 = Color3.new(1, 1, 1)
 titleLabel.Font = Enum.Font.GothamBold
 titleLabel.TextSize = 20
